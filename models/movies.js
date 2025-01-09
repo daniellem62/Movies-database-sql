@@ -49,3 +49,17 @@ export async function removeMovieById(id) {
   return removedMovie.rows[0] || null;
 }
 // CREATE EXPORT FUNCTIONS
+
+//export async function fetchMovieByDirectorLastName(lastName) {
+//  const movieByDirector = await pool.query("SELECT * FROM movies JOIN directors ON directors.id = movies.director_id WHERE directors.last_name = $1", [
+//    lastName
+//  ]);
+//  return movieByDirector.rows || null;
+//}
+
+
+//export async function fetchMovieByRating(rating) {
+//  const movieByRating = await pool.query("SELECT * FROM movies WHERE rating >= $1", [rating]);
+//  console.log(movieByRating)
+//  return movieByRating.rows || null;
+//}

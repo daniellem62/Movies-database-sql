@@ -62,7 +62,17 @@ async function resetDatabase() {
     (9, 'Greg', 'Mottola'),         
     (10, 'James', 'Wan'),           
     (11, 'John', 'Krasinski'),      
-    (12, 'Jordan', 'Peele');       
+    (12, 'Jordan', 'Peele'),
+    (13, 'Steven', 'Spielberg'),
+    (14, 'Christopher', 'Nolan'),
+    (15, 'Chloé', 'Zhao'),
+    (16, 'Guillermo', 'del Toro'),
+    (17, 'Kathryn', 'Bigelow'),
+    (18, 'Frank', 'Darabont'),
+    (19, 'Francis Ford', 'Coppola'),
+    (20, 'Peter', 'Jackson'),
+    (21, 'Sidney', 'Lumet'),
+    (22, 'Milos', 'Forman');       
   `);
 
     // Insert Movies
@@ -85,7 +95,18 @@ async function resetDatabase() {
     (15, 'Superbad', 9, 'Comedy', '2007-08-17', 7.6),
     (16, 'The Conjuring', 10, 'Supernatural Horror', '2013-07-19', 7.5),
     (17, 'A Quiet Place', 11, 'Thriller Horror', '2018-04-06', 7.5),
-    (18, 'Get Out', 12, 'Psychological Horror', '2017-02-24', 7.7);
+    (18, 'Get Out', 12, 'Psychological Horror', '2017-02-24', 7.7),
+    (19, 'Schindler''s List', 1, 'Drama', '1993-12-15', 9.00),
+    (20, 'Inception', 2, 'Sci-Fi', '2010-07-16', 8.80),
+    (21, 'Nomadland', 3, 'Drama', '2020-12-04', 8.00),
+    (22, 'The Shape of Water', 4, 'Fantasy', '2017-12-08', 7.30),
+    (23, 'The Hurt Locker', 5, 'Drama', '2008-10-10', 7.50),
+    (24, 'The Shawshank Redemption', 6, 'Drama', '1994-09-22', 9.30),
+    (25, 'The Godfather', 7, 'Crime', '1972-03-24', 9.20),
+    (26, 'The Godfather Part II', 7, 'Crime', '1974-12-20', 9.00),
+    (27, 'The Lord of the Rings: The Return of the King', 8, 'Fantasy', '2003-12-17', 9.00),
+    (28, '12 Angry Men', 9, 'Drama', '1957-04-10', 9.00),
+    (29, 'One Flew Over the Cuckoo''s Nest', 10, 'Drama', '1975-11-19', 9.00);
   `);
 
     //Insert Accolades
@@ -108,7 +129,18 @@ async function resetDatabase() {
     (15, 15, 0, 0, 169000000),  
     (16, 16, 0, 0, 319000000),  
     (17, 17, 0, 0, 341000000),  
-    (18, 18, 0, 0, 255000000);  
+    (18, 18, 0, 0, 255000000),
+    (19, 1, 7, 6, 322000000), 
+    (20, 2, 4, 3, 837000000), 
+    (21, 3, 3, 4, 39000000), 
+    (22, 4, 4, 3, 195000000), 
+    (23, 5, 6, 6, 49000000), 
+    (24, 6, 0, 2, 28341469), 
+    (25, 7, 3, 6, 246120974),
+    (26, 8, 6, 5, 102600000), 
+    (27, 9, 11, 4, 1146030912), 
+    (28, 10, 0, 1, 1000000), 
+    (29, 11, 5, 6, 109000000);
   `);
 
     console.log("Database reset successful");
