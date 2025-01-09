@@ -1,4 +1,4 @@
-
+// FUNCTION TO ADD TABLES AND DATA
 
 CREATE TABLE "Movies" (
     "id" INTEGER,
