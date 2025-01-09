@@ -1,0 +1,27 @@
+{
+  "name": "week-5-hackathon-roomeight",
+  "version": "1.0.0",
+  "description": "Feel free to delete this and start from scratch.",
+  "homepage": "https://github.com/SchoolOfCode/week-5-hackathon-roomeight#readme",
+  "bugs": {
+    "url": "https://github.com/SchoolOfCode/week-5-hackathon-roomeight/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SchoolOfCode/week-5-hackathon-roomeight.git"
+  },
+  "license": "ISC",
+  "author": "Danielle, Giuseppe, Hope",
+  "type": "module",
+  "main": "www.js",
+  "scripts": {
+    "start": "node www.js",
+    "dev": "node -r dotenv/config --watch www.js",
+    "reset-database": "node -r dotenv/config db/scripts/reset-database.js"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "morgan": "^1.10.0",
+    "pg": "^8.13.1"
+  }}
