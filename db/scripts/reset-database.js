@@ -6,78 +6,51 @@
 
 import { pool } from "../index.js";
 
-// CREATE TABLE "Movies" (
-//     "id" INTEGER,
-//     "name" TEXT,
-//     "director_id" INTEGER,
-//     "genre" TEXT,
-//     "release_date" DATE,
-//     "rating" DECIMAL,
-//     PRIMARY KEY ("id")
-//   );
-  
-//   CREATE TABLE "Directors" (
-//     "id" INTEGER,
-//     "first_name" TEXT,
-//     "last_name" TEXT,
-//     PRIMARY KEY ("id")
-//   );
-  
-//   CREATE TABLE "Accolades" (
-//     "movie_id" INTEGERS,
-//     "director_id" INTEGERS,
-//     "oscars" INTEGERS,
-//     "baftas" INTEGERS,
-//     "golden_globes" INTEGERS,
-//     "revenue" INTEGERS
-//   );
-
-  async function resetDatabase() {
-    try {
-      // Drop existing tables if they exist
-      await pool.query(`
-        DROP TABLE IF EXISTS Movies CASCADE;
-        DROP TABLE IF EXISTS Directors CASCADE;
+async function resetDatabase() {
+  try {
+    // Drop existing tables if they exist
+    await pool.query(`
+        DROP TABLE IF EXISTS movies CASCADE;
+        DROP TABLE IF EXISTS directors CASCADE;
+        DROP TABLE IF EXISTS accolades CASCADE;
       `);
-  
-      // Create the authors table
-      await pool.query(`
-          CREATE TABLE Movies (
+
+    // Create the directors table
+    await pool.query(`
+        CREATE TABLE directors (
+      id INT PRIMARY KEY,           
+      first_name VARCHAR(100) NOT NULL,      
+      last_name VARCHAR(100) NOT NULL
+      );
+    `);
+    // Create the movies table with a foreign key to the directors table
+    await pool.query(`
+          CREATE TABLE movies (
         id INT PRIMARY KEY,              
         name VARCHAR(100) NOT NULL, 
-        director_id INT REFERENCES Directors(id),      
+        director_id INT REFERENCES directors(id),      
         genre VARCHAR(100) NOT NULL,                      
         release_date DATE NOT NULL,                      
-        rating DECIMAL(2, 2),            
+        rating DECIMAL(3, 2),
+        FOREIGN KEY (director_id) REFERENCES directors(id)         
         );
       `);
-     // FOREIGN KEY (director_id) REFERENCES Directors(id)  
 
-      // Create the books table with a foreign key to the authors table
-      await pool.query(`
-          CREATE TABLE Directors (
-        id INT PRIMARY KEY,           
-        first_name VARCHAR(100) NOT NULL,      
-        last_name VARCHAR(100) NOT NULL,
-        
-        );
-      `);
-  
-      // Seed the authors table
-      await pool.query(`
-        CREATE TABLE Accolades (   
-      id PRIMARY KEY,      
+    // Create the accolades table
+    await pool.query(`
+        CREATE TABLE accolades (   
+      id INT PRIMARY KEY,      
       movies_id INT,                                        
       oscars INT,                             
       baftas INT,
-      Revenue DECIMAL(15, 2),                  
-      FOREIGN KEY (Movies_ID) REFERENCES Movies(Movies_ID) 
+      revenue DECIMAL(15, 2),                  
+      FOREIGN KEY (movies_id) REFERENCES movies(id)
+        ); 
       `);
-      
 
-  //Insert into Directors
-  await pool.query(`
-    INSERT INTO Directors (id, first_name, last_name) VALUES
+    //Insert into Directors
+    await pool.query(`
+    INSERT INTO directors (id, first_name, last_name) VALUES
     (1, 'Hayao', 'Miyazaki'),
     (2, 'Makoto', 'Shinkai'),
     (3, 'John', 'Lasseter'),
@@ -92,9 +65,9 @@ import { pool } from "../index.js";
     (12, 'Jordan', 'Peele');       
   `);
 
-  // Insert Movies 
-  await pool.query(`
-    INSERT INTO Movies (id, name, director_id, genre, release_date, rating) VALUES
+    // Insert Movies
+    await pool.query(`
+    INSERT INTO movies (id, name, director_id, genre, release_date, rating) VALUES
     (1, 'Spirited Away', 1, 'Anime', '2001-07-20', 8.6),
     (2, 'Your Name', 2, 'Anime', '2016-08-26', 8.4),
     (3, 'Toy Story', 3, 'Animation', '1995-11-22', 8.3),
@@ -114,10 +87,10 @@ import { pool } from "../index.js";
     (17, 'A Quiet Place', 11, 'Thriller Horror', '2018-04-06', 7.5),
     (18, 'Get Out', 12, 'Psychological Horror', '2017-02-24', 7.7);
   `);
-  
-  //Insert Accolades
-  await pool.query(`
-    INSERT INTO Accolades (id, movies_id, oscars, baftas, revenue) VALUES
+
+    //Insert Accolades
+    await pool.query(`
+    INSERT INTO accolades (id, movies_id, oscars, baftas, revenue) VALUES
     (1, 1, 1, 2, 235000000),
     (2, 2, 0, 1, 358000000),
     (3, 3, 0, 1, 373000000),
@@ -138,13 +111,13 @@ import { pool } from "../index.js";
     (18, 18, 0, 0, 255000000);  
   `);
 
-      console.log("Database reset successful");
+    console.log("Database reset successful");
   } catch (error) {
     console.error("Database reset failed: ", error);
   } finally {
     // End the pool
     await pool.end();
   }
-};
+}
 
 await resetDatabase();
