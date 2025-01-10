@@ -6,10 +6,12 @@ import {
   createDirector,
   updateDirectorById,
   deleteDirectorById,
+  getMovieByDirectorLastName,
 } from "../controllers/directors.js";
 
 const router = express.Router();
 
+router.get("/filter", getMovieByDirectorLastName);
 router.get("/", getDirectors);
 router.get("/:id", getDirectorById);
 router.post("/", createDirector);

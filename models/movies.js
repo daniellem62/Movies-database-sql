@@ -57,12 +57,6 @@ export async function fetchMovieByRating(rating) {
 }
 // CREATE EXPORT FUNCTIONS
 
-//export async function fetchMovieByDirectorLastName(lastName) {
-//  const movieByDirector = await pool.query("SELECT * FROM movies JOIN directors ON directors.id = movies.director_id WHERE directors.last_name = $1", [
-//    lastName
-//  ]);
-//  return movieByDirector.rows || null;
-//}
 
 //export async function fetchTop10ByOscars() {
 //  const movieByOscars = await pool.query("SELECT * FROM movies JOIN accolades ON movies.id = accolades.movies_id ORDER BY oscars DESC LIMIT 10",);

@@ -8,6 +8,7 @@ import {
   insertDirector,
   modifyDirectorById,
   removeDirectorById,
+  fetchMovieByDirectorLastName
 } from "../models/directors.js";
 
 export async function getDirectors(req, res) {
@@ -84,3 +85,27 @@ export async function deleteDirectorById(req, res) {
     res.status(500).json({ status: "error", message: error.message });
   }
 }
+
+export async function getMovieByDirectorLastName(req, res) {
+  const { lastname } = req.query;
+  try {
+    const movie = await fetchMovieByDirectorLastName(lastname);
+    if (movie && movie.length > 0) {
+      res.json({
+        success: true,
+        payload: movie,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        payload: "No movie found matching the given filter",
+      });
+    }
+  } catch (error) {
+    console.error("Error!", error);
+    res.status(500).json({
+      success: false,
+      payload: "An error occurred while finding the movie"
+    });
+  }
+};

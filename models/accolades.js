@@ -27,7 +27,7 @@ export async function insertAward(
     return newAward.rows[0];
   }
 
-  export async function modifyAwardById(
+export async function modifyAwardById(
     movies_id,
     oscars,
     baftas,
@@ -40,10 +40,18 @@ export async function insertAward(
     return modifiedAward.rows[0] || null;
   }
 
-  export async function removeAwardById(id) {
-    const removedAward = await pool.query(
-      "DELETE FROM accolades WHERE id = $1 RETURNING *",
-      [id]
-    );
-    return removedAward.rows[0] || null;
+export async function removeAwardById(id) {
+  const removedAward = await pool.query(
+    "DELETE FROM accolades WHERE id = $1 RETURNING *",
+    [id]
+   );
+  return removedAward.rows[0] || null;
   }
+
+export async function fetchTop10ByOscars() {
+  const movieByOscars = await pool.query("SELECT * FROM movies JOIN accolades ON movies.id = accolades.movies_id ORDER BY oscars DESC LIMIT 10",);
+  return movieByOscars.rows || null; }
+
+  export async function fetchTop10ByBaftas() {
+    const movieByBaftas = await pool.query("SELECT * FROM movies JOIN accolades ON movies.id = accolades.movies_id ORDER BY baftas DESC LIMIT 10",);
+    return movieByBaftas.rows || null; }

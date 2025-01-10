@@ -7,12 +7,16 @@ import {
     createAward,
     updateAwardById,
     deleteAwardById,
+    getTop10Oscars,
+    getTop10Baftas,
   } from "../controllers/accolades.js";
 
 
 const router = express.Router();
 
 //router.get("/filter", getMovieByRating);
+router.get("/top10oscars", getTop10Oscars);
+router.get("/top10baftas", getTop10Baftas);
 router.get("/", getAwards);
 router.get("/:id", getAwardById);
 router.post("/", createAward);

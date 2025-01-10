@@ -5,6 +5,8 @@ import {
   insertAward,
   modifyAwardById,
   removeAwardById,
+  fetchTop10ByOscars,
+  fetchTop10ByBaftas,
 } from "../models/accolades.js";
 
 export async function getAwards(req, res) {
@@ -16,6 +18,23 @@ export async function getAwards(req, res) {
   }
 }
 
+export async function getTop10Oscars(req, res) {
+    try {
+      const awards = await fetchTop10ByOscars();
+      res.status(200).json({ status: "success", data: awards });
+    } catch (error) {
+      res.status(500).json({ status: "error", message: error.message });
+    }
+  }
+
+  export async function getTop10Baftas(req, res) {
+    try {
+      const awards = await fetchTop10ByBaftas();
+      res.status(200).json({ status: "success", data: awards });
+    } catch (error) {
+      res.status(500).json({ status: "error", message: error.message });
+    }
+  }
 
 export async function getAwardById(req, res) {
   try {

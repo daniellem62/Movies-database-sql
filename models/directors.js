@@ -36,3 +36,10 @@ export async function removeDirectorById(id) {
   );
   return removedDirector.rows[0] || null;
 }
+
+export async function fetchMovieByDirectorLastName(last_name) {
+  const movieByDirector = await pool.query("SELECT * FROM movies JOIN directors ON directors.id = movies.director_id WHERE directors.last_name = $1", [
+    last_name
+  ]);
+  return movieByDirector.rows || null;
+}
