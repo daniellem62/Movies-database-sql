@@ -1,4 +1,38 @@
 import { pool } from "../db/index.js";
 
-// CREATE EXPORT FUNCTIONS
+export async function fetchAllDirectors() {
+  const directors = await pool.query("SELECT * FROM directors");
+  return directors.rows;
+}
 
+export async function fetchDirectorById(id) {
+  const directorById = await pool.query(
+    "SELECT * from directors WHERE id = $1",
+    [id]
+  );
+  return directorById.rows[0] || null;
+}
+
+export async function insertDirector(first_name, last_name) {
+  const newDirector = await pool.query(
+    "INSERT INTO directors (first_name, last_name) VALUES($1, $2) RETURNING *",
+    [first_name, last_name]
+  );
+  return newDirector.rows[0];
+}
+
+export async function modifyDirectorById(id, first_name, last_name) {
+  const modifiedDirector = await pool.query(
+    "UPDATE directors SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING *",
+    [first_name, last_name, id]
+  );
+  return modifiedDirector.rows[0] || null;
+}
+
+export async function removeDirectorById(id) {
+  const removedDirector = await pool.query(
+    "DELETE FROM directors WHERE id = $1 RETURNING *",
+    [id]
+  );
+  return removedDirector.rows[0] || null;
+}

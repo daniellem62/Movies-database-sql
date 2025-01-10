@@ -1,14 +1,19 @@
 import express from "express";
 
-//import {
-//    functions
-//  } from "../controllers/directors.js";
+import {
+  getDirectors,
+  getDirectorById,
+  createDirector,
+  updateDirectorById,
+  deleteDirectorById,
+} from "../controllers/directors.js";
+
 const router = express.Router();
 
-// router.get("/", );
-//router.get("/:id", id);
-//router.post("/", create);
-//router.patch("/:id", updateById);
-//router.delete("/:id", deleteById);
+router.get("/", getDirectors);
+router.get("/:id", getDirectorById);
+router.post("/", createDirector);
+router.patch("/:id", updateDirectorById);
+router.delete("/:id", deleteDirectorById);
 
 export default router;
