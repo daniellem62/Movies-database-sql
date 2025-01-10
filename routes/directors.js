@@ -7,10 +7,12 @@ import {
   updateDirectorById,
   deleteDirectorById,
   getMovieByDirectorLastName,
+  getMovieByDirectorHighestRevenue,
 } from "../controllers/directors.js";
 
 const router = express.Router();
 
+router.get("/revenue", getMovieByDirectorHighestRevenue)
 router.get("/filter", getMovieByDirectorLastName);
 router.get("/", getDirectors);
 router.get("/:id", getDirectorById);

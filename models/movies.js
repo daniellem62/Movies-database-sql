@@ -58,10 +58,6 @@ export async function fetchMovieByRating(rating) {
 // CREATE EXPORT FUNCTIONS
 
 
-//export async function fetchTop10ByOscars() {
-//  const movieByOscars = await pool.query("SELECT * FROM movies JOIN accolades ON movies.id = accolades.movies_id ORDER BY oscars DESC LIMIT 10",);
-//  return movieByOscars.rows || null; }
-
 //export async function fetchMovieByGenre(genre) {
 //    const movieByGenre = await pool.query("SELECT * FROM movies WHERE LOWER(genre) = LOWER($1)", [genre]);
 //    console.log(movieByGenre.rows);
