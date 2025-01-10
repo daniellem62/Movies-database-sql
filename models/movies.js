@@ -15,15 +15,15 @@ export async function fetchMovieById(id) {
 }
 
 export async function insertMovie(
+  id,
   name,
-  director_id,
   genre,
   release_date,
   rating
 ) {
   const newMovie = await pool.query(
-    "INSERT INTO movies (name, director_id, genre, release_date, rating) VALUES($1, $2, $3, $4, $5) RETURNING *",
-    [name, director_id, genre, release_date, rating]
+    "INSERT INTO movies (id, name, genre, release_date, rating) VALUES($1, $2, $3, $4, $5) RETURNING *",
+    [id, name, genre, release_date, rating]
   );
   return newMovie.rows[0];
 }
@@ -31,14 +31,13 @@ export async function insertMovie(
 export async function modifyMovieById(
   id,
   name,
-  director_id,
   genre,
   release_date,
   rating
 ) {
   const modifiedMovie = await pool.query(
-    "UPDATE movies SET name = $1, director_id = $2, genre = $3, release_date = $4, rating = $5 WHERE id = $6 RETURNING *",
-    [name, director_id, genre, release_date, rating, id]
+    "UPDATE movies SET name = $1, genre = $2, release_date = $3, rating = $4 WHERE id = $5 RETURNING *",
+    [name, genre, release_date, rating, id]
   );
   return modifiedMovie.rows[0] || null;
 }

@@ -63,15 +63,15 @@ export async function getMovieById(req, res) {
 
 export async function createMovie(req, res) {
   try {
-    const { name, director_id, genre, release_date, rating } = req.body;
-    if (!name || !director_id || !genre || !release_date || !rating) {
+    const { id, name, genre, release_date, rating } = req.body;
+    if (!id || !name || !genre || !release_date || !rating) {
       return res
         .status(400)
         .json({ status: "fail", message: "Missing required fields" });
     }
     const movie = await insertMovie(
+      id,
       name,
-      director_id,
       genre,
       release_date,
       rating
@@ -85,8 +85,8 @@ export async function createMovie(req, res) {
 export async function updateMovieById(req, res) {
   try {
     const id = req.params.id;
-    const { name, director_id, genre, release_date, rating } = req.body;
-    if (!name || !director_id || !genre || !release_date || !rating) {
+    const { name, genre, release_date, rating } = req.body;
+    if (!name || !genre || !release_date || !rating) {
       return res
         .status(400)
         .json({ status: "fail", message: "Missing required fields" });
@@ -94,7 +94,6 @@ export async function updateMovieById(req, res) {
     const movie = await modifyMovieById(
       id,
       name,
-      director_id,
       genre,
       release_date,
       rating
