@@ -2,8 +2,10 @@ import { pool } from "../db/index.js";
 
 export async function fetchAllMovies() {
   const movies = await pool.query("SELECT * FROM movies");
+  console.log(movies)
   return movies.rows;
 }
+
 
 export async function fetchMovieById(id) {
   const movieById = await pool.query("SELECT * from movies WHERE id = $1", [
@@ -48,6 +50,11 @@ export async function removeMovieById(id) {
   );
   return removedMovie.rows[0] || null;
 }
+export async function fetchMovieByRating(rating) {
+  const movieByRating = await pool.query("SELECT * FROM movies WHERE rating >= $1 AND rating < ($1 + 1) ORDER BY rating DESC", [rating]);
+  return movieByRating.rows || null;
+
+}
 // CREATE EXPORT FUNCTIONS
 
 //export async function fetchMovieByDirectorLastName(lastName) {
@@ -57,9 +64,14 @@ export async function removeMovieById(id) {
 //  return movieByDirector.rows || null;
 //}
 
+//export async function fetchTop10ByOscars() {
+//  const movieByOscars = await pool.query("SELECT * FROM movies JOIN accolades ON movies.id = accolades.movies_id ORDER BY oscars DESC LIMIT 10",);
+//  return movieByOscars.rows || null; }
 
-//export async function fetchMovieByRating(rating) {
-//  const movieByRating = await pool.query("SELECT * FROM movies WHERE rating >= $1", [rating]);
-//  console.log(movieByRating)
-//  return movieByRating.rows || null;
-//}
+//export async function fetchMovieByGenre(genre) {
+//    const movieByGenre = await pool.query("SELECT * FROM movies WHERE LOWER(genre) = LOWER($1)", [genre]);
+//    console.log(movieByGenre.rows);
+//    return movieByGenre.rows || null; } 
+
+
+

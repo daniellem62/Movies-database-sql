@@ -22,14 +22,17 @@ import {
   createMovie,
   updateMovieById,
   deleteMovieById,
+  getMovieByRating,
 } from "../controllers/movies.js";
 
 const router = express.Router();
 
+router.get("/filter", getMovieByRating);
 router.get("/", getMovies);
 router.get("/:id", getMovieById);
 router.post("/", createMovie);
 router.patch("/:id", updateMovieById);
 router.delete("/:id", deleteMovieById);
+
 
 export default router;

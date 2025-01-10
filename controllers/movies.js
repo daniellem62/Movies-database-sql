@@ -4,6 +4,7 @@
 import {
   fetchAllMovies,
   fetchMovieById,
+  fetchMovieByRating,
   insertMovie,
   modifyMovieById,
   removeMovieById,
@@ -17,6 +18,33 @@ export async function getMovies(req, res) {
     res.status(500).json({ status: "error", message: error.message });
   }
 }
+
+export async function getMovieByRating(req, res) {
+    const { rating } = req.query;
+    try {
+      const movie = await fetchMovieByRating(rating);
+      if (movie && movie.length > 0) {
+        res.json({
+          success: true,
+          payload: movie,
+        });
+      } else {
+        res.status(404).json({
+          success: false,
+          payload: "No movie found matching the given filter",
+        });
+      }
+    } catch (error) {
+      console.error("Error!", error);
+      res.status(500).json({
+        success: false,
+        payload: "An error occurred while finding the movie"
+      });
+    }
+  };
+
+
+  
 
 export async function getMovieById(req, res) {
   try {
