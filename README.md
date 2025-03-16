@@ -11,7 +11,7 @@
   - [Accolades Endpoints](#accolades-endpoints)
   - [Top 10 Oscars Endpoints](#top-10-oscars-endpoints)
   - [Top 10 BAFTAs Endpoints](#top-10-baftas-endpoints)
-- [License](#license)
+- [Extra Features](#extra-features)
 
 ## Project Structure
 
@@ -99,6 +99,10 @@ This project exposes a RESTful API to perform CRUD operations on the **Movies**,
    - **Description**: Delete a director record by ID.
    - **URL Params**:
      - `id` (int): The ID of the director to be deleted.
+    
+6. **Get Director's movies**
+   - **Endpoint**: `GET /directors/filter?last_name=Miyazaki`
+   - **Description**: Get movies made by this director.
 
 ### Movies Endpoints
 1. **Get All Movies**
@@ -133,6 +137,11 @@ This project exposes a RESTful API to perform CRUD operations on the **Movies**,
    - **Description**: Delete a movie record by ID.
    - **URL Params**:
      - `id` (int): The ID of the movie to be deleted.
+
+6. **Get Movies by Rating**
+   - **Endpoint**: `GET /movies/filter?rating=8`
+   - **Description**: Get movies by their rating.
+
 
 ### Accolades Endpoints
 1. **Get All Accolades**
@@ -169,13 +178,50 @@ This project exposes a RESTful API to perform CRUD operations on the **Movies**,
 
 ### Top 10 Oscars Endpoints
 1. **Get Top 10 Movies with Most Oscars**
-   - **Endpoint**: `GET /top10oscars`
+   - **Endpoint**: `GET /accolades/top10oscars`
    - **Description**: Fetch the top 10 movies based on the number of Oscars won.
 
 ### Top 10 BAFTAs Endpoints
 1. **Get Top 10 Movies with Most BAFTAs**
-   - **Endpoint**: `GET /top10baftas`
+   - **Endpoint**: `GET /accolades/top10baftas`
    - **Description**: Fetch the top 10 movies based on the number of BAFTAs won.
 
+## Extra Features
 
 
+#### 1. **Fetch Movies by Director's Name (Join)**
+
+Instead of querying movies using the director's ID, you can now fetch movies based on the **director's name**. This makes it easier for users to find movies from a specific director without needing to know the ID.
+
+**Example Request:**
+
+`GET /directors/filter?last_name=Miyazaki`
+
+This request will return all movies directed by **Hayao Miyazaki**.
+
+#### 2. **Fetch a Director's Highest Revenue Movie (Join)**
+
+The API also supports fetching the **highest revenue movie** for each director by joining the **movies**, **directors**, and **accolades** tables. This is a useful feature for those who want to quickly know which movie of a director has made the most revenue.
+
+**Example Request:**
+
+`GET /directors/revenue?last_name=Miyazaki`
+
+This request will return the highest revenue movie directed by **Hayao Miyazaki** based on the data from the **movies** and **accolades** tables.
+
+---
+
+
+### Example SQL Query
+
+For those interested in how the highest-grossing movie for a director is retrieved, here's the SQL query that joins the three tables:
+
+```sql
+(SELECT name, revenue, first_name, last_name
+FROM movies
+JOIN directors ON directors.id = movies.director_id
+JOIN accolades ON accolades.movies_id = movies.id
+WHERE directors.last_name = $1
+ORDER BY accolades.revenue
+DESC LIMIT 1", [last_name])
+```
