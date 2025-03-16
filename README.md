@@ -11,7 +11,8 @@
   - [Accolades Endpoints](#accolades-endpoints)
   - [Top 10 Oscars Endpoints](#top-10-oscars-endpoints)
   - [Top 10 BAFTAs Endpoints](#top-10-baftas-endpoints)
-- [Extra Features](#extra-features)
+  - [Extra Features](#extra-features)
+- [Future Plans](#future-plans)
 
 ## Project Structure
 
