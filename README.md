@@ -225,3 +225,8 @@ WHERE directors.last_name = $1
 ORDER BY accolades.revenue
 DESC LIMIT 1", [last_name])
 ```
+
+
+## Future Plans
+- Create a front-end to display the data
+- Create more api routes eg get movies by genre.
