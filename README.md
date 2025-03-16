@@ -59,15 +59,9 @@ This table contains information about accolades received by movies.
     npm install
     ```
 3. Set up the database connection by configuring the `index.js` file with your PostgreSQL credentials.
-4. Run the `resetDatabase` function to create and populate the database:
-    ```javascript
-    import { pool } from "../index.js";
-
-    async function resetDatabase() {
-      // Database reset code as shown in the original code
-    }
-
-    await resetDatabase();
+4. Run the `resetDatabase` script to create and populate the database:
+    ```bash
+    npm run reset-database
     ```
     This function will drop existing tables if they exist, create new tables, and insert sample data.
 
